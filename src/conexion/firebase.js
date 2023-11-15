@@ -1,3 +1,4 @@
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -20,6 +21,7 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_APPID,
   
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

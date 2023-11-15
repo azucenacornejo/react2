@@ -1,12 +1,12 @@
-import React from 'react'
+import dashboard from 'react'
 
-const Dashboard = () => {
+const Home = () => {
   return (
     <div id="public">
       <h1>Dashboard</h1>
-      Página  Dashboard...
+      <p>Bienvenido a la página de Dashboard holaaa </p>
     </div>
   )
 }
 
-export default Dashboard
+export default dashboard
