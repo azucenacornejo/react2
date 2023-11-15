@@ -10,5 +10,3 @@ const C01componente = () => {
 }
 
 export default C01componente
-
- 

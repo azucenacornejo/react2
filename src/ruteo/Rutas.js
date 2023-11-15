@@ -3,9 +3,8 @@
 import React from 'react';
 import { Routes, Route, Outlet, Switch, Redirect} from 'react-router-dom';
 import Home from '../public/Home';
-
-import Contacto from '../public/Contacto';
 import AcercaDe from '../public/AcercaDe';
+import Contacto from '../public/Contacto';
 
 //////////////////////// AUTENTICACIÓN /////////////////
 
