@@ -1,60 +1,59 @@
-import { useEffect, useState } from 'react';
-import AppForm from './componentes/AppForm';
 import logo from './logo.svg';
 //import './App.css';
+import { C01componente } from './component/C01componente';
+import { useState } from 'react';
+import AppForm from './component/Appform';
 import { collection, deleteDoc, doc, onSnapshot, query } from 'firebase/firestore';
-import { db } from './componentes/firebase';
+import { db } from './firebase/firebase';
 
 function App() {
 
-  /// READ - LECTURA - fnRead /////
-  const [docBD, setDocBD] = useState([]);
-  const fnRead = () => {
+  //// READ - LECTURA -fnRead ///////////
+  const [docBD, setDocBD] =useState([]);
+  const fnRead =() => {
     try {
-      const xColeccionConQuery = query(collection(db, "persona"));
-      const unsubscribe = onSnapshot(xColeccionConQuery, (xDatosBD) => {
-      const xDoc = [];
-      xDatosBD.forEach((doc) => {
-       xDoc.push({id:doc.id, ...doc.data()});
+      const xColeccionConQuery = query (collection(db,"persona"));
+      const unsubcribe = onSnapshot(xColeccionConQuery,(xDatosBD)=> {
+        const xDoc = [];
+        xDatosBD.forEach ((doc)=> {
+          xDoc.push({id:doc.id,...doc.data()});
+        });
+        
+        setDocBD(xDoc);
       });
-      setDocBD(xDoc);
-      }); 
     } catch (error) {
       console.error(error);
     }
   }
 
-  useEffect(() =>{
-    fnRead();
-  },[]);
-  
-  //// DELETE - Eliminar - fnDelete ////
-  const [idActual, setIdActual] = useState("");
-  const fnDelete = async (xId) => {
-   if(window.confirm("Confirme para eliminar")){
-    await deleteDoc(doc(db, "persona", xId));
-    alert("Se elimino con exito...");
-   }
+  fnRead(); 
+    console.log(docBD)
+    /////////// DELETE -Eliminar-fnDelete/////
+    const [idActual, setIdActual]= useState("");
+
+    const fnDelete = async (xId) => {
+      if(window.confirm("Confirme para eliminar")){
+        await deleteDoc(doc(db, "persona", xId));
+        alert("Se elimino con exito ....");
+      }
+    }
+    return (
+      <div style={{width:"350px",background:"#84b6f4", padding:"10px"}}>
+      <AppForm {...{idActual, setIdActual, fnRead}} />
+      {docBD.map((r, index) => 
+         <p key={r.id}>
+          Nº. {index+1}. {r.nombre}
+          -------
+          <span onClick={() =>fnDelete(r.id)}>x</span>
+          -------
+          <span onClick={() =>setIdActual(r.id)}>A</span>
+        </p>
+        )
+      }
+      
+      </div>
+    );
   }
-
-  return (
-    <div style={{width:"350px", background:"greenyellow",padding:"10px"}}>
-     <AppForm {...{idActual, setIdActual, fnRead}} />
-     {
-      docBD.map((p) => 
-      <p key={p.id}> 
-        No. {p.nombre}...
-        <span onClick={() => fnDelete(p.id)}>x</span>
-        .....
-        <span onClick={() => setIdActual(p.id)}>A</span>
-      </p>
-      )
-     }
-     
-     
-     
-    </div>
-  );
-}
-
-export default App;
+  
+  
+  export default App;
