@@ -8,7 +8,7 @@ import { signOut } from 'firebase/auth';
 
 import { toast } from 'react-toastify';
 
-const AppForm = (props) => {
+const AppFormEgresados = (props) => {
 
   ////////////////// MANEJAR INGRESO DE DATOS ///////////
   const handleStatusChange = (e) => { //Manejar cambios
@@ -30,7 +30,7 @@ const AppForm = (props) => {
     try {
       if(props.idActual == ""){
         if(validarForm()){
-          addDoc(collection(db, 'persona'), objeto);
+          addDoc(collection(db, 'egresados'), objeto);
           toast("Se guardo con éxito...", {type:'success', autoClose:2000 });
           //console.log("Se registro con éxito...");
         }else{
@@ -38,7 +38,7 @@ const AppForm = (props) => {
         }
         setObjeto(camposRegistro);
       }else{
-        await updateDoc(doc(collection(db, 'persona'), props.idActual), objeto);
+        await updateDoc(doc(collection(db, 'egresados'), props.idActual), objeto);
         props.setIdActual('');
         toast("Se ACTUALIZO el REGISTRO...", {
           type:'info',
@@ -82,7 +82,7 @@ const AppForm = (props) => {
 
   const obtenerDatosPorId = async (xId) => {
     //Console.log("xId: ", xId);
-    const objPorId = doc(db, "persona", xId);
+    const objPorId = doc(db, "egresados", xId);
     const docPorId = await getDoc(objPorId);
     if(docPorId.exists()){
       //console.log("Datos de doc...", docPorId.data());
@@ -112,7 +112,7 @@ const AppForm = (props) => {
         </div>
 
         <button className='btn btn-primary btn-block'>
-          Registrar Estudiantes (AppForm.js)
+          Registrar Egresados (AppFormEgresados.js)
         </button>
 
         <div className='form-group input-group'>
@@ -152,4 +152,4 @@ const AppForm = (props) => {
   )
 }
 
-export default AppForm;
+export default AppFormEgresados;

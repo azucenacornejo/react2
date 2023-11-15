@@ -1,11 +1,12 @@
 import React from 'react'
 
-const noticias = () => {
+const Noticias = () => {
   return (
-    <div>noticias
-      actuales
+    <div id="public">
+      <h1>NOTICIAS</h1>
+      <p>PAGINA DE NOTICIAS 2023</p>
     </div>
   )
 }
 
-export default noticias
+export default Noticias

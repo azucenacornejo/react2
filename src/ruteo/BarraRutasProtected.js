@@ -1,5 +1,5 @@
 import { Routes, Route, Outlet, Switch, Redirect} from 'react-router-dom';
-
+   
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
@@ -15,23 +15,23 @@ import ListaDeAlumnos from '../protegido/sistemacrud/ListaDeAlumnos';
 import SistemaFILE from '../protegido/SistemaFILE';
 import Fotos from '../protegido/sistemafile/Fotos';
 
+
 //////////////////////// PAG. PUBLICOS /////////////////
 import RegisterForm from '../login/RegisterForm';
 import LoginForm from '../login/LoginForm';
 import AppLista from '../protegido/sistemacrud/AppLista';
-import ListaDeProfesores from '../protegido/sistemacrud/ListaDeEgresados';
-import ListaDeportes from '../protegido/sistemacrud/ListaDeportes';
+import ListaDeProfesores from '../protegido/sistemacrud/ListaDeProfesores';
 import Documentos from '../protegido/sistemafile/Documentos';
+import ListaDeDeportes from '../protegido/sistemacrud/ListaDeDeportes';
 import ListaDeCarreras from '../protegido/sistemacrud/ListaDeCarreras';
-import Docpdf from '../protegido/sistemafile/Docpdf';
+import Pdf from '../protegido/sistemafile/Pdf';
 import Videos from '../protegido/sistemafile/Videos';
+import AppEgresados from '../protegido/sistemacrud/AppEgresados';
 
 const BarraRutasProtected = () => {
     const { user } = useAuth();
     const auth = getAuth();
     const navigate = useNavigate();
-
-    
   
     const handleSignOut = () => {
       if (user) {
@@ -44,36 +44,34 @@ const BarraRutasProtected = () => {
             console.error('Error al cerrar sesión:', error);
           });
       }
-    
     }
   
-    return (
-      <div style={{ background:"royalblue", padding:"10px" }}>
+    return ( //style={{ background:"royalblue", padding:"10px" }}
+      <div> 
         <nav>
           <div id="login">
             <ul>
-
-          
-              
               <li><Link to="/nuevoregistro">Registrar</Link></li>
-              
-              <li><Link onClick={handleSignOut} > Cerrar sesión </Link> </li> 
+  
+              <li><Link onClick={handleSignOut} >Cerrar sesión</Link> </li> 
   
             </ul>
           </div>
               
           <div id="menu">
             <ul>
-              <li><Link to="/sistema-crud/applista">Alumnos(applista)</Link> </li>
-              <li><Link to="/sistema-crud/profesores">Egresados</Link> </li>
-              <li><Link to="/sistema-crud/deportes">Deportes</Link> </li>
-              <li><Link to="/sistema-crud/carreras">carreras</Link> </li>
-          
-                      
-              <li><Link to="/sistema-file/fotos">Galeria de Fotos</Link> </li>
-              <li><Link to="/sistema-file/docword">Doc. Word</Link> </li>
-              <li><Link to="/sistema-file/docpdf">Doc.PDF</Link> </li>
-              <li><Link to="/sistema-file/videos">VIDEOS</Link> </li>
+              <li><Link to="/sistema-crud/carre">Carreras</Link> </li>
+              <li><Link to="/sistema-crud/depor">Deportes</Link> </li>
+              <li><Link to="/sistema-crud/egre">Egresados</Link> </li>
+              <li><Link to="/sistema-crud/applista">Alumnos(App-Lista)</Link> </li>
+              <li><Link to="/sistema-crud/prof">Profesores</Link> </li>
+              
+
+              <li><Link to="/sistema-file/videos">Videos</Link> </li>
+              <li><Link to="/sistema-file/fotos">Fotos</Link> </li>
+              <li><Link to="/sistema-file/docword">PDF</Link> </li>
+              <li><Link to="/sistema-file/docword">WORD</Link> </li>
+              
             </ul>
           </div>
         </nav>
@@ -85,13 +83,15 @@ const BarraRutasProtected = () => {
 
           
           <Route path="/sistema-crud" element={<MarcoParaSistemaCRUD />}>
+            <Route path="carre" element={<ListaDeCarreras />} />
+            <Route path="depor" element={<ListaDeDeportes />} />
+            <Route path="egre" element={<AppEgresados />} />
             <Route index element={<SistemaCRUD />} />
             <Route path="applista" element={<AppLista />} />
-            <Route path="profesores" element={<ListaDeProfesores />} />
-            <Route path="deportes" element={<ListaDeportes />} />
-            <Route path="carreras" element={<ListaDeCarreras />} />
+            <Route path="prof" element={<ListaDeProfesores />} />
             
-         
+            
+            
           </Route>
   
   
@@ -99,8 +99,8 @@ const BarraRutasProtected = () => {
             <Route index element={<SistemaFILE />} />
             <Route path="fotos" element={<Fotos />} />
             <Route path="docword" element={<Documentos />} />
-            <Route path="docpdf" element={<Docpdf />} />
-            <Route path="videos" element={<Videos />} />
+            <Route path="Pdf" element={<Pdf />} />
+            <Route path="Videos" element={<Videos />} />
           </Route>
   
         </Routes>        
@@ -131,8 +131,8 @@ function MarcoParaSistemaFILE() {
 
 
   
-  
   /*
+  
                 {user ? (         ////////  Para cerrar sesión   ///////////
                 <li><Link onClick={handleSignOut} > Cerrar sesión </Link> </li> 
                 ) : (
@@ -165,4 +165,3 @@ function MarcoParaSistemaFILE() {
       }
     }
   */
-  
